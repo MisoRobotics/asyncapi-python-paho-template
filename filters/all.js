@@ -4,6 +4,7 @@ const TemplateUtil = require('../lib/templateUtil.js');
 const templateUtil = new TemplateUtil();
 
 const typeMap = {
+  "boolean": "bool",
   "integer": "int",
   "number": "float",
   "string": "str"
@@ -118,7 +119,7 @@ function payloadClass(operation) {
 }
 filter.payloadClass = payloadClass;
 
-// This returns the first server it can find in the servers section, mainly to 
+// This returns the first server it can find in the servers section, mainly to
 // support the streetlights tutorial.
 function server(asyncapi) {
   return templateUtil.getServer(asyncapi)

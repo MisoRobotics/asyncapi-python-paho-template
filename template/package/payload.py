@@ -1,7 +1,10 @@
 {% from "partials/model-class" import modelClass -%}
+from dataclasses import dataclass, field
 from enum import Enum
-from typing import Sequence
-from entity import Entity
+from typing import Any, Optional, Sequence
+
+from dataclasses_json import LetterCase, dataclass_json
+
 {% set schema = asyncapi | getAnonymousSchema -%}
 {% if schema %}
 {% set imports = schema | getImports -%}

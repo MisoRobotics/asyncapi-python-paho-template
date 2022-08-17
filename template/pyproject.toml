@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+[project]
+name = "{{ asyncapi.info().title() }}-client"
+version = "{{ asyncapi.info().version() }}"
+description = "Interact with AsyncAPI-compatible services."
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+    "configparser",
+    "dataclasses_json",
+    "paho-mqtt",
+    "requests",
+    'importlib-metadata; python_version<"3.8"',
+]

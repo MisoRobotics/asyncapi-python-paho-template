@@ -3,23 +3,23 @@ import configparser
 import logging
 import time
 
-import messaging
+from . import messaging
 
 {% if asyncapi.components() -%}
 {% for schemaName, schema in asyncapi.components().schemas() -%}
 {% set moduleName = schemaName | lowerFirst -%}
-from {{ moduleName }} import {{ schemaName | upperFirst }}
+from .{{ moduleName }} import {{ schemaName | upperFirst }}
 {% endfor -%}
 {% else -%}
-from payload import Payload
+from .payload import Payload
 {% endif %}
 
 
 # Config has the connection properties.
 def getConfig():
-    configParser = configparser.ConfigParser()
-    configParser.read('config.ini')
-    config = configParser['DEFAULT']
+    config_parser = configparser.ConfigParser()
+    config_parser.read('config.ini')
+    config = config_parser['DEFAULT']
     return config
 
 {% for channelName, channel in asyncapi.channels() -%}
@@ -58,10 +58,10 @@ def main():
 
     # Example of how to publish a message. You will have to add arguments to the constructor on the next line:
     payload = {{ publishMessenger.payloadClass }}()
-    payloadJson = payload.to_json()
+    payload_json = payload.to_json()
 
     while (True):
-        {{ publishMessenger.name }}.publish('{{ publishMessenger.publishTopic }}', payloadJson)
+        {{ publishMessenger.name }}.publish('{{ publishMessenger.publishTopic }}', payload_json)
         time.sleep(1)
 {%- endif %}
 
